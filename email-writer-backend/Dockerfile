@@ -1,17 +1,20 @@
-# Use an official Java runtime as the base image
+# Use official OpenJDK 17
 FROM openjdk:17-jdk-slim
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy everything from your backend folder into /app
+# Copy everything
 COPY . .
 
-# Build your Spring Boot JAR using Maven Wrapper
+# Make Maven wrapper executable
+RUN chmod +x ./mvnw
+
+# Build the Spring Boot JAR
 RUN ./mvnw clean package -DskipTests
 
-# Expose your app's port (usually 8080)
+# Expose the port your app uses
 EXPOSE 8080
 
 # Run the built JAR
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["java", "-jar", "target/email-writer-backend-0.0.1-SNAPSHOT.jar"]
