@@ -11,6 +11,9 @@
         "http://localhost:8080/*",
         "*://mail.google.com/*"
     ],
+    "icons": {
+        "16": "icon.png"
+    },
     "content_scripts": [
         {
             "js": ["content.js"],
@@ -28,5 +31,4 @@
     "action": {
         "default_title": "Email Writer Assistant"
     }
-
 }

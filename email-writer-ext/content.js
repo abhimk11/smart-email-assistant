@@ -86,8 +86,19 @@ function injectButton() {
             button.innerHTML = 'Generating...';
             button.disabled = true;
 
+            // Prompt for backend URL, pre-fill with last used or default
+            let backendUrl = localStorage.getItem('ai_backend_url') || 'http://localhost:8080';
+            backendUrl = prompt('Enter your AI backend URL:', backendUrl);
+            if (!backendUrl) {
+                alert('Backend URL is required.');
+                button.innerHTML = 'AI Reply';
+                button.disabled = false;
+                return;
+            }
+            localStorage.setItem('ai_backend_url', backendUrl);
+
             const emailContent = getEmailContent();
-            const response = await fetch('http://localhost:8080/api/email/generate', {
+            const response = await fetch(`${backendUrl}api/email/generate`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
