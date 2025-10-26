@@ -1,19 +1,19 @@
-# Use official OpenJDK 17
-FROM openjdk:17-jdk-slim
+# Use Java 21
+FROM eclipse-temurin:21-jdk
 
 # Set working directory
 WORKDIR /app
 
-# Copy everything
+# Copy all files
 COPY . .
 
 # Make Maven wrapper executable
 RUN chmod +x ./mvnw
 
-# Build the Spring Boot JAR
+# Build JAR
 RUN ./mvnw clean package -DskipTests
 
-# Expose the port your app uses
+# Expose port
 EXPOSE 8080
 
 # Run the built JAR
