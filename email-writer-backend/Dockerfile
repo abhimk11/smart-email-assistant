@@ -10,11 +10,12 @@ COPY . .
 # Make Maven wrapper executable
 RUN chmod +x ./mvnw
 
-# Build JAR
+# Build the Spring Boot JAR
 RUN ./mvnw clean package -DskipTests
 
-# Expose port
+# Expose the port
 EXPOSE 8080
 
-# Run the built JAR
-CMD ["java", "-jar", "target/email-writer-backend-0.0.1-SNAPSHOT.jar"]
+# Run the built JAR using wildcard and PORT env
+ENV PORT=8080
+CMD ["sh", "-c", "java -Dserver.port=$PORT -jar target/*.jar"]
